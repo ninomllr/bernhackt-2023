@@ -1,0 +1,59 @@
+@page "/leaflet-map"
+
+@using System.Text.Json
+@using thorstopper.Client.Services
+
+@implements IDisposable
+
+@* Init map into page *@
+<div id="map" style="height:400px; border:2px inset #ccc"></div>
+
+@code {
+    // Use JavaScript in Blazor
+    [Inject] IJSRuntime JsRuntime { get; set; }
+    // Use Http request (Axios in JS) in Blazor
+    [Inject] HttpClient HttpClient { get; set; }
+    
+    private MudForm Form { get; set; }
+    private LeafletService LeafletService { get; set; }
+    private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
+    
+
+    // Action after Blazor render
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Make request to SwissTopo API and take the address data 
+            var data = await HttpClient.GetFromJsonAsync<JsonElement>("https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=Kapellenstrasse 26 3011 Bern&type=locations&limit=1");
+
+            // Connection with JS script 
+            await JsRuntime.InvokeAsync<object>(
+                "leafletApiJsFunctions.initialize",  
+                data.GetProperty("results"), 
+                LeafLetServiceRef);
+        }
+    }
+    
+    protected override void OnInitialized()
+    {
+        LeafletService = new LeafletService();
+        LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+
+        LeafletService.Notify += OnNotify;
+    }
+    
+    // Callback 
+    private async Task OnNotify()
+    {
+        await InvokeAsync(StateHasChanged);
+        Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
+    }
+    
+    public void Dispose()
+    {
+        LeafletService.Notify -= OnNotify;
+
+        LeafLetServiceRef?.Dispose();
+    }
+}
