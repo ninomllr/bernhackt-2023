@@ -1,21 +1,47 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
-
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="0" Color="Color.Transparent" Style="border-bottom: 1px solid #e5e5e5; background-color: white !important; border-left: 1px solid #e5e5e5;">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
+        <MudSpacer />
+        <img src="gvb_logo.1620214076346.svg" height="30px" />
+    </MudAppBar>
+    
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <MudDrawerHeader Class="d-flex align-items-center">
+            <b>Thorstopper</b>
+        </MudDrawerHeader>
+        
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Store" Href="/counter">Counter</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LibraryBooks" Href="/fetchdata">Library</MudNavLink>
+        </MudNavMenu>
+        
+        <NavMenu/>
+        <MudSpacer />
+        <div class="d-flex align-items-center pl-4" style="border-top: 1px solid #e5e5e5; height: 60px">
+            <MudAvatar Style="height: 30px; width: 30px; background-color: #eb0000">M</MudAvatar>
+            <p class="ml-2 mb-0">Max Muster</p>
+        </div>
+    </MudDrawer>
+    
+    <MudMainContent Class="pt-16">
+        <MudContainer Class="mt-6">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+}
