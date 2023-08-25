@@ -7,6 +7,16 @@
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+
+<MudGrid>
+    <MudItem xs="6" Class="d-flex justify-content-center">
+        <h1>test</h1>
+    </MudItem>
+    <MudItem xs="6">
+        <h1>test</h1>
+    </MudItem>
+</MudGrid>
 
 @code {
     private int currentCount = 0;
