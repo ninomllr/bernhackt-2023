@@ -11,7 +11,7 @@
         <img src="gvb_logo.1620214076346.svg" height="30px" />
     </MudAppBar>
     
-    <MudDrawer @bind-Open="@_drawerOpen">
+    <MudDrawer @bind-Open="@DrawerOpen">
         <MudDrawerHeader Class="d-flex align-items-center">
             <b>Thorstopper</b>
         </MudDrawerHeader>
@@ -21,8 +21,8 @@
             <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LibraryBooks" Href="/fetchdata">Library</MudNavLink>
         </MudNavMenu>
         
-        <NavMenu/>
         <MudSpacer />
+        
         <div class="d-flex align-items-center pl-4" style="border-top: 1px solid #e5e5e5; height: 60px">
             <MudAvatar Style="height: 30px; width: 30px; background-color: #eb0000">M</MudAvatar>
             <p class="ml-2 mb-0">Max Muster</p>
@@ -37,11 +37,11 @@
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+    private bool DrawerOpen { get; set; } = true;
 
     void DrawerToggle()
     {
-        _drawerOpen = !_drawerOpen;
+        DrawerOpen = !DrawerOpen;
     }
 
 }
