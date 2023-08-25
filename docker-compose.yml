@@ -4,7 +4,7 @@ version: '3.4'
 
 services:
   bernhackt2022server:
-    image: bernhackt2022server
+    image: webimage
     build:
       context: .
       dockerfile: Server/Dockerfile
