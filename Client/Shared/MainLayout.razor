@@ -1,47 +1,72 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="0" Color="Color.Transparent" Style="border-bottom: 1px solid #e5e5e5; background-color: white !important; border-left: 1px solid #e5e5e5;">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
-        <MudSpacer />
-        <img src="gvb_logo.1620214076346.svg" height="30px" />
-    </MudAppBar>
-    
-    <MudDrawer @bind-Open="@DrawerOpen">
-        <MudDrawerHeader Class="d-flex align-items-center">
-            <b>Thorstopper</b>
-        </MudDrawerHeader>
-        
-        <MudNavMenu>
-            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Store" Href="/counter">Counter</MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.EnergySavingsLeaf" Match="NavLinkMatch.All" Href="leaflet-map">Leaflet Map</MudNavLink>
-        </MudNavMenu>
-        
-        <MudSpacer />
-        
-        <div class="d-flex align-items-center pl-4" style="border-top: 1px solid #e5e5e5; height: 60px">
-            <MudAvatar Style="height: 30px; width: 30px; background-color: #eb0000">M</MudAvatar>
-            <p class="ml-2 mb-0">Max Muster</p>
-        </div>
-    </MudDrawer>
-    
-    <MudMainContent Class="pt-16">
-        <MudContainer Class="mt-6">
-            @Body
-        </MudContainer>
-    </MudMainContent>
+  <MudAppBar
+    Elevation="0"
+    Color="Color.Transparent"
+    Style="border-bottom: 1px solid #e5e5e5; background-color: white !important; border-left: 1px solid #e5e5e5;"
+  >
+    <MudIconButton
+      Icon="@Icons.Material.Filled.Menu"
+      Color="Color.Inherit"
+      Edge="Edge.Start"
+      OnClick="@DrawerToggle"
+    />
+    <MudSpacer />
+    <img src="gvb_logo.1620214076346.svg" height="30px" />
+  </MudAppBar>
+
+  <MudDrawer @bind-Open="@DrawerOpen">
+    <MudDrawerHeader Class="d-flex align-items-center">
+      <b>Thorstopper</b>
+    </MudDrawerHeader>
+
+    <MudNavMenu>
+      <MudNavLink
+        Match="NavLinkMatch.All"
+        Icon="@Icons.Material.Filled.Store"
+        Href="/open-case"
+        >Auftrag eröffnen</MudNavLink
+      >
+      <MudNavLink
+        Match="NavLinkMatch.All"
+        Icon="@Icons.Material.Filled.Store"
+        Href="/case-list"
+        >Auftragsliste</MudNavLink
+      >
+      <MudNavLink
+        Icon="@Icons.Material.Filled.EnergySavingsLeaf"
+        Match="NavLinkMatch.All"
+        Href="leaflet-map"
+        >Leaflet Map</MudNavLink
+      >
+    </MudNavMenu>
+
+    <MudSpacer />
+
+    <div
+      class="d-flex align-items-center pl-4"
+      style="border-top: 1px solid #e5e5e5; height: 60px"
+    >
+      <MudAvatar Style="height: 30px; width: 30px; background-color: #eb0000"
+        >M</MudAvatar
+      >
+      <p class="ml-2 mb-0">Max Muster</p>
+    </div>
+  </MudDrawer>
+
+  <MudMainContent Class="pt-16">
+    <MudContainer Class="mt-6"> @Body </MudContainer>
+  </MudMainContent>
 </MudLayout>
 
 @code {
-    private bool DrawerOpen { get; set; } = true;
-
-    void DrawerToggle()
+    private bool DrawerOpen { get; set; } = true; void DrawerToggle()
     {
         DrawerOpen = !DrawerOpen;
     }
-
-}
+} 
