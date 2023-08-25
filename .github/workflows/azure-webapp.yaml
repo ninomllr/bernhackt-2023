@@ -1,0 +1,40 @@
+name: Multijob workflow to build and deploy Docker app to Azure
+
+on: push
+
+# CONFIGURATION
+# For help, go to https://github.com/Azure/Actions
+#
+# Set up the following secrets in your repository:
+#   AZURE_CREDENTIALS, REGISTRY_USERNAME, REGISTRY_PASSWORD
+# 2. Change these variables for your configuration:
+env:
+  CONTAINER_REGISTRY: acrbernhackt.azurecr.io # set this to Container Registry name
+
+jobs:
+  build-in-actions-workflow:
+    runs-on: ubuntu-latest
+    environment: prod
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@master
+
+      # Authentication
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      # Build and push container
+      - run: |
+          docker build . -t ${{ env.CONTAINER_REGISTRY }}/webimage:latest
+          docker push ${{ env.CONTAINER_REGISTRY }}/webimage:latest
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS  }}
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: gvb-10534
+          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
