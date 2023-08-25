@@ -11,17 +11,17 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
-COPY ["src/src.csproj", "src/"]
-RUN dotnet restore "Server/src.csproj"
+COPY ["Server/thorstopper.Server.csproj", "Server/"]
+RUN dotnet restore "Server/thorstopper.Server.csproj"
 COPY . .
 WORKDIR "/src/Server"
-RUN dotnet build "src.csproj" -c Release -o /app/build
+RUN dotnet build "thorstopper.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "thorstopper.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "src.dll"]
+ENTRYPOINT ["dotnet", "thorstopper.Server.dll"]
 EXPOSE 5282
