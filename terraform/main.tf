@@ -40,7 +40,6 @@ provider "azuread" {
 resource "azurerm_resource_group" "rg" {
   name     = "Baern_Hackt"
   location = "Switzerland North"
-  # location = "North Europe"
 }
 
 # ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
