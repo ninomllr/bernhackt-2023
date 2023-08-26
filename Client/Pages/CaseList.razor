@@ -1,4 +1,4 @@
-﻿@page "/case-list"
+﻿@page "/"
 
 @using thorstopper.Client.Services
 @using thorstopper.Client.Data
@@ -49,8 +49,8 @@
         }
         
         <MudTd DataLabel="Actions">
-          <MudIconButton Icon="fas fa-atom" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(context.CaseNumber))"></MudIconButton>
-          <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary" OnClick="@(() => RowClickEventOffer(context.CaseNumber))"></MudIconButton>
+          <MudIconButton Icon="fas fa-edit" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(context.CaseNumber))"></MudIconButton>
+          <MudIconButton Icon="fas fa-file" Color="Color.Secondary" OnClick="@(() => RowClickEventOffer(context.CaseNumber))"></MudIconButton>
         </MudTd>
       </RowTemplate>
     </MudTable>
