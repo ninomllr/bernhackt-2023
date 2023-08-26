@@ -13,6 +13,7 @@
         <MudPaper Elevation="0" Outlined="true" Class="pa-4">
             <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
                 <MudTextField T="string" Label="Ort / PLZ " Required="true" RequiredError="Ort benötigt" />
+                <MudNumericField Class="mt-6" @bind-Value="IntRadius" Label="Radius (km)" Variant="Variant.Text" Min="1"  />
                 <MudDatePicker Class="mt-6" Label="Datum des Ereignisses" Required="true" RequiredError="Startdatum für Abgrenzung benötigt" />
                 <MudDatePicker Class="mt-6" Label="Gültig bis" Required="true" RequiredError="Entdatum für Abgrenzung benötigt" />
                 <MudSelect Class="mt-6" T="string" Label="Ereignisstyp" Required="true" AnchorOrigin="Origin.BottomCenter">
@@ -28,6 +29,7 @@
 </MudGrid>
 
 @code {
+    public int IntRadius { get; set; } = 1;
     bool success = true;
     string[] errors = { };
     MudTextField<string> pwField1;
