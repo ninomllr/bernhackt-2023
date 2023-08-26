@@ -8,12 +8,10 @@
 
 <MudGrid>
   <MudItem xs="6" Class="d-flex justify-content-center">
-    <h1>test</h1>
-    <MudText>KI Riskscoring</MudText>
-    <MudChip Variant="Variant.Outlined" Color="Color.Success">@AiPredictionRiskScore</MudChip>
+    <MudChip Variant="Variant.Filled" Color="Color.Success">KI Riskscoring @AiPredictionRiskScore</MudChip>
   </MudItem>
   <MudItem xs="6">
-    <h1>test</h1>
+    <div id="map" style="width:100%; height:400px;"></div>
   </MudItem>
 </MudGrid>
 
@@ -38,6 +36,25 @@ protected override async void OnInitialized()
 
   // @TODO Prediction test
   AiPredictionRiskScore = await AIService.GetAIRecommendation("text");
+
+  LeafletService = new LeafletService();
+  LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+
+  LeafletService.Notify += OnNotify;
+}
+
+// Callback 
+private async Task OnNotify()
+{
+  await InvokeAsync(StateHasChanged);
+  Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
+}
+
+public void Dispose()
+{
+  LeafletService.Notify -= OnNotify;
+
+  LeafLetServiceRef?.Dispose();
 }
 
 
@@ -51,5 +68,28 @@ private async Task NavigateTo(string path)
 {
   NavigationManager.NavigateTo(path, forceLoad: false);
 }
+
+// Use JavaScript in Blazor
+[Inject] IJSRuntime JsRuntime { get; set; }
+// Use Http request (Axios in JS) in Blazor
+[Inject] HttpClient HttpClient { get; set; }
+
+private LeafletService LeafletService { get; set; }
+private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
+
+
+// Action after Blazor render
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+  if (firstRender)
+  {
+    // Connection with JS script 
+    await JsRuntime.InvokeAsync<object>(
+      "leafletApiJsFunctions.initialize",
+      Elements,
+      LeafLetServiceRef);
+  }
+}
+
 
 } 
