@@ -23,20 +23,17 @@ window.leafletApiJsFunctions = {
         }
         
         // Create map and attach id to element with id "map"
-        const map = L.map('map', {
-            // Use LV95 (EPSG:2056) projection -> SWISS
-            // crs: L.CRS.EPSG2056,
-        });
+        const map = L.map('map', {});
 
-        // Add Esri layer with default options
-        const Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {minZoom: 1, maxZoom:28, scheme: 'tms',reuseTiles:true}).addTo(map); 
-        
-        // EXAMPLE: Add Swiss layer with default options
-        // const mapLayer = L.tileLayer.swiss({
-        //     attribution: '© <a href="https://www.swisstopo.ch/">Swisstopo</a>',
-        //     pluginAttribution: true,
-        //     timestamp: 'current',
-        // }).addTo(map);
+        const mapLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
+            minZoom: 4,
+            maxZoom: 28,
+            attribution: '',
+            ext: 'png',
+            pluginAttribution: true,
+            timestamp: 'current',
+        }).addTo(map);
+
         
         // Add Swiss Satellite layer with default options
         const satelliteLayer = L.tileLayer.swiss({
@@ -46,13 +43,10 @@ window.leafletApiJsFunctions = {
             pluginAttribution: true,
             timestamp: 'current',
         });
-        
-        // EXAMPLE:  Center the map on Switzerland
-        // map.fitSwitzerland();
 
         // Multiple layers
         const baseMaps = {
-            'Map': Esri_WorldTopoMap,
+            'Map': mapLayer,
             'Satellite (Swissimage)': satelliteLayer
         };
         
@@ -85,7 +79,7 @@ window.leafletApiJsFunctions = {
                 marker.update();
                 map.setView([lat, lng], 16);
             } else {
-                map.removeLayer(Esri_WorldTopoMap);
+                map.removeLayer(mapLayer);
                 map.options.crs = L.CRS.EPSG2056;
                 map.options.tms = true;
                 map.fitBounds(bounds);
@@ -96,13 +90,36 @@ window.leafletApiJsFunctions = {
             }
             layer.redraw();
         })
+
+        const svgIcon = L.divIcon({
+            html: `
+            <svg  viewBox="-4 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>map-marker</title>
+    <defs>
+
+</defs>
+    <g id="Vivid.JS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vivid-Icons" transform="translate(-125.000000, -643.000000)">
+            <g id="Icons" transform="translate(37.000000, 169.000000)">
+                <g id="map-marker" transform="translate(78.000000, 468.000000)">
+                    <g transform="translate(10.000000, 6.000000)">
+                        <path d="M14,0 C21.732,0 28,5.641 28,12.6 C28,23.963 14,36 14,36 C14,36 0,24.064 0,12.6 C0,5.641 6.268,0 14,0 Z" id="Shape" fill="#f0953c">
+
+</path>
+                        <circle id="Oval" fill="#da2f24" fill-rule="nonzero" cx="14" cy="14" r="7">
+
+</circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+            `,
+            iconSize: [24, 40],
+        });
         
         // Add a draggable marker to map
-        const marker =  L.marker([lat, lng], {draggable: true}).addTo(map).on('dragend', () => {
-           // Call callback and return data from JS to Blazor
-            return dotnetHelper.invokeMethodAsync('GetLatLng', 
-                marker.getLatLng().lng,
-                marker.getLatLng().lat);
-        })
+        const marker =  L.marker([lat, lng], {draggable: false, icon: svgIcon}).addTo(map);
     }}
 //]]>
