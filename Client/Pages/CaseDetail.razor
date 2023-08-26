@@ -19,8 +19,13 @@
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='@((e)=> NavigateTo("/offers"))'>Offerten anschauen</MudButton>
 
 @code {
-  [Inject] NavigationManager NavigationManager { get; set; }
+[Inject] NavigationManager NavigationManager { get; set; }
 [Inject] ICaseService CaseServiceInstance { get; set; }
+// Use JavaScript in Blazor
+[Inject] IJSRuntime JsRuntime { get; set; }
+// Use Http request (Axios in JS) in Blazor
+[Inject] HttpClient HttpClient { get; set; }
+[Inject] IAIClassifierService AIService { get; set; }
 
 [Parameter]
 public string ParamId { get; set; }
@@ -28,6 +33,9 @@ public int Id { get { return Int32.Parse(ParamId); } }
 
 private IEnumerable<Case> Elements;
 private Case Element;
+private int AiPredictionRiskScore;
+private LeafletService LeafletService { get; set; }
+private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
 
 protected override async void OnInitialized()
 {
@@ -57,26 +65,10 @@ public void Dispose()
   LeafLetServiceRef?.Dispose();
 }
 
-
-[Inject] IAIClassifierService AIService { get; set; }
-
-
-private int AiPredictionRiskScore;
-
-
 private async Task NavigateTo(string path)
 {
   NavigationManager.NavigateTo(path, forceLoad: false);
 }
-
-// Use JavaScript in Blazor
-[Inject] IJSRuntime JsRuntime { get; set; }
-// Use Http request (Axios in JS) in Blazor
-[Inject] HttpClient HttpClient { get; set; }
-
-private LeafletService LeafletService { get; set; }
-private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
-
 
 // Action after Blazor render
 protected override async Task OnAfterRenderAsync(bool firstRender)
