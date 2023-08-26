@@ -18,15 +18,15 @@
       @ref="mudTable"
       RowClassFunc="@SelectedRowClassFunc"
       OnRowClick="RowClickEvent"
-      T="Element"
+      T="Case"
     >
       <HeaderContent>
-        <MudTh>Nr</MudTh>
-        <MudTh>Sign</MudTh>
+        <MudTh>Auftragsnummer</MudTh>
+        <MudTh>Kundenname</MudTh>
       </HeaderContent>
       <RowTemplate>
-        <MudTd DataLabel="Nr">@context.Number</MudTd>
-        <MudTd DataLabel="Sign">@context.Sign</MudTd>
+        <MudTd DataLabel="Nr">@context.CaseNumber</MudTd>
+        <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
       </RowTemplate>
     </MudTable>
   </MudItem>
@@ -35,19 +35,17 @@
 @code {
 
 private int selectedRowNumber = -1;
-private MudTable<Element> mudTable;
+private MudTable<Case> mudTable;
 private List<string> clickedEvents = new();
 
-private IEnumerable<Element> Elements = new List<Element>() {
-  new Element() { Number = 1, Sign = "H", Name = "Hydrogen", Position = 0, Molar = 1.00794 },
-  new Element() { Number = 2, Sign ="He", Name = "Helium", Position = 17, Molar = 4.002602 },
-  new Element() { Number = 3, Sign = "Li", Name = "Lithium", Position = 0, Molar = 6.941 }
+private IEnumerable<Case> Elements = new List<Case>() {
+  new Case() { CaseNumber = 1, CaseName = "Test", Address = "Weg 1, 3007 Bern", CustomerName = "Tom Tommasson" },
   };
-private void RowClickEvent(TableRowClickEventArgs<Element> tableRowClickEventArgs)
+private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
 {
   clickedEvents.Add("Row has been clicked");
 }
-private string SelectedRowClassFunc(Element element, int rowNumber)
+private string SelectedRowClassFunc(Case element, int rowNumber)
 {
   if (selectedRowNumber ==
   rowNumber)
