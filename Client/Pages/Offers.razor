@@ -82,5 +82,19 @@
         </MudCardActions>
       </MudCard>
   </MudItem>
+  <MudItem xs="12">
+    <MudButton Variant="Variant.Filled" OnClick="NavigateTo">Zurück</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary">Angebote an Kunde versenden</MudButton>
+  </MudItem>
 </MudGrid>
 
+
+@code {
+  [Inject] NavigationManager NavigationManager { get; set; }
+
+  private async Task NavigateTo()
+  {
+    NavigationManager.NavigateTo("/case-detail", forceLoad: false);
+  }
+
+} 
