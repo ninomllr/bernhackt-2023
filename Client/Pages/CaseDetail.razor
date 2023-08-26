@@ -13,14 +13,15 @@
   </MudItem>
 </MudGrid>
 
-<MudButton Variant="Variant.Filled" OnClick="NavigateTo">Offerten anschauen</MudButton>
+<MudButton Variant="Variant.Filled" OnClick='@((e)=> NavigateTo("/case-list"))'>Zurück</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='@((e)=> NavigateTo("/offers"))'>Offerten anschauen</MudButton>
 
 @code {
   [Inject] NavigationManager NavigationManager { get; set; }
 
-private async Task NavigateTo()
+private async Task NavigateTo(string path)
 {
-  NavigationManager.NavigateTo("/offers", forceLoad: false);
+  NavigationManager.NavigateTo(path, forceLoad: false);
 }
 
 } 
