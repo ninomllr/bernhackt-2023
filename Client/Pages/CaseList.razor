@@ -33,17 +33,17 @@
         <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
         <MudTd DataLabel="Address">@context.Address</MudTd>
         <MudTd DataLabel="Date">@context.Date</MudTd>
-        @if (context.Bounty)
+        @if (context.Bounty != null)
         {
           <MudTd DataLabel="Bounty">
-            <MudChip Variant="Variant.Text" Color="Color.Success">@context.Bounty</MudChip>
+            <MudChip Variant="Variant.Text" Color="@((bool)context.Bounty ? Color.Success : Color.Error)">"@((bool)context.Bounty ? "Ja" : "Nein")"</MudChip>
           </MudTd>
           
         }
         else
         {
           <MudTd DataLabel="Bounty">
-            <MudChip Variant="Variant.Text" Color="Color.Error">@context.Bounty</MudChip>
+            <MudChip Variant="Variant.Text" Color="Color.Dark">--</MudChip>
           </MudTd>
         }
         

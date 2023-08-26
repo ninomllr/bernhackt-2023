@@ -13,5 +13,5 @@ public class Case
 	public double Lat { get; set; }
 	public double Lng { get; set; }
 
-	public bool Bounty { get; set; }
+	public bool? Bounty { get; set; }
 }
