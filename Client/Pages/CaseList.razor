@@ -27,14 +27,19 @@
         <MudTh>Adresse</MudTh>
         <MudTh>Datum</MudTh>
         <MudTh>Bounty</MudTh>
+        <MudTh>Aktionen</MudTh>
       </HeaderContent>
       <RowTemplate>
         <MudTd DataLabel="Nr">@context.CaseNumber</MudTd>
-        <MudTd DataLabel="CustomerName">@context.CaseName</MudTd>
+        <MudTd DataLabel="CaseName">@context.CaseName</MudTd>
         <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
-        <MudTd DataLabel="CustomerName">@context.Address</MudTd>
-        <MudTd DataLabel="CustomerName">@context.Date</MudTd>
-        <MudTd DataLabel="CustomerName">@context.Bounty</MudTd>
+        <MudTd DataLabel="Address">@context.Address</MudTd>
+        <MudTd DataLabel="Date">@context.Date</MudTd>
+        <MudTd DataLabel="Bounty">@context.Bounty</MudTd>
+        <MudTd DataLabel="Actions">
+          <MudIconButton Icon="@Icons.Material.Filled.Description" Color="Color.Primary" aria-label="description"></MudIconButton>
+          <MudIconButton Icon="@Icons.Material.Filled.Attractions" Color="Color.Secondary" aria-label="offer"></MudIconButton>
+        </MudTd>
       </RowTemplate>
     </MudTable>
   </MudItem>
