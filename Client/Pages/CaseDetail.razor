@@ -1,5 +1,6 @@
-﻿@page "/case-detail"
+﻿@page "/case-detail/{Id}"
 @using thorstopper.Client.Data
+@using thorstopper.Client.Services
 
 <PageTitle>Auftragsdetails</PageTitle>
 
@@ -19,13 +20,23 @@
 
 @code {
   [Inject] NavigationManager NavigationManager { get; set; }
+  [Inject] ICaseService CaseServiceInstance { get; set; }
   
+  [Parameter]
+  public int Id { get; set; }
   
+  private IEnumerable<Case> Elements;
+  private Case Element;
   
+  protected override async void OnInitialized()
+  {
+    Elements = await CaseServiceInstance.GetCases();
+    Element = Elements.FirstOrDefault(x => x.CaseNumber == Id);
+  }
 
-private async Task NavigateTo(string path)
-{
-  NavigationManager.NavigateTo(path, forceLoad: false);
-}
+  private async Task NavigateTo(string path)
+  {
+    NavigationManager.NavigateTo(path, forceLoad: false);
+  }
 
 } 

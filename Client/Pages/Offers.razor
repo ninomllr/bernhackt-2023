@@ -7,13 +7,13 @@
 <PageTitle>Angebotsübersicht</PageTitle>
 
 <h1>Angebotsübersicht</h1>
-<MudText>Folgende Angebote wurden für den Schadensfall ausgewählt.</MudText>
+<MudText Class="pb-4">Folgende Angebote wurden für den Schadensfall ausgewählt.</MudText>
 
 <MudGrid>
   @foreach (var item in @Elements)
   {
                         <MudItem xs="4" Class="d-flex justify-content-center">
-                              <MudCard Outlined="true">
+                              <MudCard Outlined="true" Style="position: relative;">
                                 <MudCardContent>
                                     <MudText><strong>Anbieter:</strong></MudText>
                                     <MudText Typo="Typo.body2">@item.ServiceProviderName, @item.ServiceProviderAddress</MudText>
@@ -28,17 +28,19 @@
                                       </ul>
                                     </MudText>
                                     <MudText>&nbsp;</MudText>
-                                    <MudText><strong>Offertenpreis:</strong></MudText>
+                                    <MudText Class="pb-2"><strong>Offertenpreis:</strong></MudText>
                                     <MudChip Variant="Variant.Outlined">@item.OfferPrice.ToString("C2", CultureInfo.CreateSpecificCulture("de-CH"))</MudChip>
                                     <MudText>&nbsp;</MudText>
           @if (@item.BountyPrice != 0)
           {
                                       <MudText><strong>Bounty:</strong></MudText>
-                                      <MudText Typo="Typo.body2">Aufgrund der Distanz wird folgendes Bounty vorgeschlagen.</MudText>
+                                      <MudText Typo="Typo.body2" Class="pb-2">Aufgrund der Distanz wird folgendes 
+                                      Bounty 
+                                      vorgeschlagen.</MudText>
                                       <MudChip Variant="Variant.Outlined" Color="Color.Success">@item.BountyPrice.ToString("C2", CultureInfo.CreateSpecificCulture("de-CH"))</MudChip>
           }
                                 </MudCardContent>
-                                <MudCardActions>
+                                <MudCardActions Class="object-position: bottom;">
                                     <MudButton Variant="Variant.Text" Color="Color.Secondary">Anbieter kontaktieren</MudButton>
                                     <MudButton Variant="Variant.Text" Color="Color.Primary">PDF Herunterladen</MudButton>
                                 </MudCardActions>
@@ -47,7 +49,7 @@
   }
 
     <MudItem xs="12">
-      <MudButton Variant="Variant.Filled" OnClick="NavigateTo">Zurück</MudButton>
+      <MudButton Variant="Variant.Filled" OnClick="NavigateTo" Class="mr-6">Zurück</MudButton>
       <MudButton Variant="Variant.Filled" Color="Color.Primary">Angebote an Kunde versenden</MudButton>
     </MudItem>
   </MudGrid>
@@ -60,7 +62,7 @@
 
   private IEnumerable<Offer> Elements;
 
-  protected async override void OnInitialized()
+  protected override async void OnInitialized()
   {
     Elements = await OfferServiceInstance.GetOffers();
   }

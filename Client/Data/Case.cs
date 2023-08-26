@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace thorstopper.Client.Data;
 
 public class Case
