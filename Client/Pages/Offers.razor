@@ -66,14 +66,9 @@
 
 
 @code {
-
-    [Inject]
-    NavigationManager NavigationManager { get; set; }
-
-    [Inject]
-    IOfferService OfferServiceInstance { get; set; }
-
-
+    [Inject] NavigationManager NavigationManager { get; set; }
+    [Inject] IOfferService OfferServiceInstance { get; set; }
+    
     private IEnumerable<Offer> Elements;
 
     protected override async void OnInitialized()
@@ -83,7 +78,7 @@
 
     private async Task NavigateTo()
     {
-        NavigationManager.NavigateTo("/case-detail", forceLoad: false);
+        NavigationManager.NavigateTo("/case-list", forceLoad: false);
     }
 
 }
