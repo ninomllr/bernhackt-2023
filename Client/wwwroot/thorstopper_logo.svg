@@ -1,8 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-    <rect y="0" width="400" height="400" style="fill:#fff; stroke-width:0px;"/>
-    <polygon points="390.74 0 390.74 0 228.92 0 228.92 0 219.66 0 219.66 330.85 400 330.85 400 0 390.74 0" style="fill:#ff8f18; stroke-width:0px;"/>
-    <polygon points="192.4 0 64.38 302.96 130.38 330.85 270.18 0 192.4 0" style="fill:#ee000c; stroke-width:0px;"/>
-    <polygon points="270.18 0 130.38 330.85 163.27 344.75 308.95 0 270.18 0" style="fill:#fff; stroke-width:0px;"/>
-    <path d="m263.12,379.25l-82.29-84.99-130.58-55.18c-6.9-2.91-16,3.02-20.31,13.23L1.11,320.55c-4.31,10.2-2.22,20.87,4.67,23.79l129.86,54.87.28.12,118.74-.08c3.69,0,7.38-3.07,9.38-7.81,2.01-4.75,1.65-9.53-.92-12.19Z" style="fill:#ee000c; stroke-width:0px;"/>
-    <path d="m372.7,117.98l-45.35,75.73h28.23l-82.13,111.66,21.8-93.69h-39.78l39.38-93.7h77.85Z" style="fill:#fff; stroke-width:0px;"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><polygon points="390.74 0 390.74 0 308.95 0 308.95 0 219.66 211.3 219.66 330.85 400 330.85 400 0 390.74 0" style="fill:#ff8f18; stroke-width:0px;"/><polygon points="192.4 0 64.38 302.96 130.38 330.85 270.18 0 192.4 0" style="fill:#ee000c; stroke-width:0px;"/><path d="m263.12,379.25l-82.29-84.99-130.58-55.18c-6.9-2.91-16,3.02-20.31,13.23L1.11,320.55c-4.31,10.2-2.22,20.87,4.67,23.79l129.86,54.87.28.12,118.74-.08c3.69,0,7.38-3.07,9.38-7.81,2.01-4.75,1.65-9.53-.92-12.19Z" style="fill:#ee000c; stroke-width:0px;"/></svg>
