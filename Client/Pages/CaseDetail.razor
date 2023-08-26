@@ -1,4 +1,5 @@
-﻿@page "/case-detail/{ParamId}"
+﻿using System.Xml.Xsl.Runtime;
+@page "/case-detail/{ParamId}"
 @using thorstopper.Client.Data
 @using thorstopper.Client.Services
 
@@ -8,7 +9,9 @@
 
 <MudGrid>
   <MudItem xs="6" Class="d-flex justify-content-center">
-    <MudChip Variant="Variant.Filled" Color="Color.Success">KI Riskscoring @AiPredictionRiskScore</MudChip>
+      <MudText><MudChip Variant="Variant.Filled" Color="Color.Success">KI Riskscoring @AiPredictionRiskScore</MudChip></MudText>
+      <MudText>@Element.CaseNumber</MudText>
+      <MudText>@Element.CaseName</MudText>
   </MudItem>
   <MudItem xs="6">
     <div id="map" style="width:100%; height:400px;"></div>
