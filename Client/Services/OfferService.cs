@@ -31,7 +31,7 @@ public class OfferService : IOfferService
 			},
 			ServiceProviderName = "Handwerker Brüder Dacherinno",
 			ServiceProviderAddress = "Strassi McStrassistrass 43, 3012 Bern",
-			OfferPrice = 460000,
+			OfferPrice = 46000,
 		},
 		new Offer() {
 			OfferNumber = 3,
