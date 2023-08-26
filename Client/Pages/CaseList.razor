@@ -1,6 +1,5 @@
 ﻿@page "/case-list"
 
-@using System.Text.Json
 @using thorstopper.Client.Services
 
 <PageTitle>Auftragsliste</PageTitle>
@@ -8,28 +7,38 @@
 <h1>Auftragsliste</h1>
 
 <MudGrid>
-  <MudItem md="6" lg="6" Class="d-flex">
+  <MudItem xs="12" md="12" lg="12" Class="d-flex" Style="width: 100%" >
     <MudTable
-      Items="@Elements.Take(4)"
+      Items="@Elements.Take(6)"
       Hover="true"
+      HorizontalScrollbar="true"
       Breakpoint="Breakpoint.Sm"
       @ref="mudTable"
       RowClassFunc="@SelectedRowClassFunc"
       OnRowClick="RowClickEvent"
       T="Case"
+      Style="width: 100%"
     >
       <HeaderContent>
         <MudTh>Auftragsnummer</MudTh>
+        <MudTh>Auftragname</MudTh>
         <MudTh>Kundenname</MudTh>
+        <MudTh>Adresse</MudTh>
+        <MudTh>Datum</MudTh>
+        <MudTh>Bounty</MudTh>
       </HeaderContent>
       <RowTemplate>
         <MudTd DataLabel="Nr">@context.CaseNumber</MudTd>
+        <MudTd DataLabel="CustomerName">@context.CaseName</MudTd>
         <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
+        <MudTd DataLabel="CustomerName">@context.Address</MudTd>
+        <MudTd DataLabel="CustomerName">@context.Date</MudTd>
+        <MudTd DataLabel="CustomerName">@context.Bounty</MudTd>
       </RowTemplate>
     </MudTable>
   </MudItem>
   
-  <MudItem md="6" lg="6" Class="d-flex">
+  <MudItem xs="12" md="12" lg="12" Class="d-flex">
     @* Init map into page *@
     <div id="map" style="width:100%; height:400px;"></div>
   </MudItem>
