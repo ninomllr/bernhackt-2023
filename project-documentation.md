@@ -44,7 +44,7 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 ### Lösung MVP
 * [Finde unsere Lösung hier!](https://gvb-10534.azurewebsites.net/ "link to webpage")
 
-[QR Code](./assets/qrcode.png "QR code with link to page")
+<img src="./assets/qrcode.png" width="150">
 
 ### Out of Scope
 * Weltfrieden
