@@ -1,6 +1,6 @@
 //<![CDATA[
 window.leafletApiJsFunctions = {
-    initialize: function (dataCases, dataEmergencies, dotnetHelper) {
+    initialize: function (dataCases, dataEmergencies, dataCase, dotnetHelper) {
     
         let lat = 46.947975
         let lng =7.447447
@@ -58,12 +58,19 @@ window.leafletApiJsFunctions = {
             // iconAnchor: [24, 40],
         });
         
-        for (let i = 0; i < dataCases.length; i++) {
-            new L.marker([dataCases[i]['lat'], dataCases[i]['lng']], {draggable: false, icon: svgIcon})
-                .addTo(map);    
+        if (dataCase) {
+            new L.marker([dataCase.lat, dataCase.lng], {draggable: false, icon: svgIcon})
+                .addTo(map);
+        }
+        
+        if (dataCases != null) {
+            for (let i = 0; i < dataCases.length; i++) {
+                new L.marker([dataCases[i]['lat'], dataCases[i]['lng']], {draggable: false, icon: svgIcon})
+                    .addTo(map);    
+            }
         }
 
-        if (dataEmergencies.length > 0) {
+        if (dataEmergencies != null) {
             for (let i = 0; i < dataEmergencies.length; i++) {
                 new L.circle([dataEmergencies[i]['lat'],dataEmergencies[i]['lng']], dataEmergencies[i]['radius']*1000,  {color: "red", opacity:.5}).addTo(map);
             }
