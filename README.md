@@ -59,4 +59,4 @@ LocalDevelopment - `https://localhost:5000`
 - [Nico Berchtold](https://github.com/ntold)
 - [Michal Durik](https://github.com/miko866)
 - [Florence Meier](https://github.com/Tamalera)
-- [Oliver Messerli](https://github.com/olimoli)
+- [Olivier Messerli](https://github.com/olimoli)
