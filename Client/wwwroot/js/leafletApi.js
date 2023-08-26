@@ -63,8 +63,10 @@ window.leafletApiJsFunctions = {
                 .addTo(map);
         }
 
-        for (let i = 0; i < dataEmergencies.length; i++) {
-            new L.circle([dataEmergencies[i]['lat'],dataEmergencies[i]['lng']], dataEmergencies[i]['radius']*1000,  {color: "red", opacity:.5}).addTo(map);
+        if (dataEmergencies.length > 0) {
+            for (let i = 0; i < dataEmergencies.length; i++) {
+                new L.circle([dataEmergencies[i]['lat'],dataEmergencies[i]['lng']], dataEmergencies[i]['radius']*1000,  {color: "red", opacity:.5}).addTo(map);
+            }
         }
 
     }}
