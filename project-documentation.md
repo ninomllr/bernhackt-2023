@@ -2,17 +2,18 @@
 ___
 
 ## Aktueller Stand des Sourcecodes
-![Github Link](https://github.com/ninomllr/bernhackt-2023 "link to github repo")
+[Github Link](https://github.com/ninomllr/bernhackt-2023 "link to github repo")
 
 ## Ausgangslage
 Am diesjärigen BärnHäckt arbeitet Team **NOMNOMNOM** an der Challenge von GVB ([Challenge](https://www.bernhackt.ch/challenge-gvb-thunderstorm/ "challenge description")), um **GVB** bei einem Notfall helfen kann, Handwerker und betroffene Kunde zu matchen. Dies hilf, Folgeschäden und die resultierenden Kosten zu verhindern, sowie dem Kunden einen schnelleren Zugang zu Hilfe gewährzuleisten, und dabei die Handwerkbetriebe optimal auszulasten.
 
 ### Problembeschrieb
-* Lorem
-* Ipsum
+* Bei einem Notfall (zB Sturm) müssen viele Schäden an Gebäuden behoben werden
+* Handwerker sind oft überlastet, andere finden keine Kunden
+* Zusammenbringen der Kunden und Handwerker ist nicht einfach
 
 ### Fokus
-MVP fokussiert sich auf ....
+MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notfall zu unterstützen.
 
 ### Technische Grundsatzentscheide
 * Bewusster Entscheid gegen Mobile, da es ein Business Tool ist.
@@ -24,7 +25,7 @@ MVP fokussiert sich auf ....
 ### TODO Komponente und Frameworks
 | CODE         | DB     | INFRA |
 |--------------|-----------|------------|
-| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.jpeg"> | NEEDED? | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
+| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.jpeg"> | TO BE DEFINED | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
 
 ### Aufgabe pro Tool
 * Azure: Einfaches Hosting und Bereitstellen
@@ -36,14 +37,14 @@ MVP fokussiert sich auf ....
 * Github Actions: CI / CD
 
 ### Daten
-* Haben wir Daten???
+* Naaaah, alles mocked, lol
 
 ## Implementation
 
 ### Lösung MVP
-* Lorem ipsum ![Finde unsere Lösung hier!](https://gvb-10534.azurewebsites.net/ "link to webpage")
+* [Finde unsere Lösung hier!](https://gvb-10534.azurewebsites.net/ "link to webpage")
 
-TODO ![QR Code](./assets/qr_code.png "QR code with link to page")
+[QR Code](./assets/qrcode.png "QR code with link to page")
 
 ### Out of Scope
 * Weltfrieden
@@ -56,7 +57,7 @@ FOTOS EINFUEGEN
 
 
 ## Mitwirkende
-Oliver, Florence, Nico, Nino, Michal
+Florence, Nico, Nino, Michal, Oliver
 ___
 
-:heart: :house: :computer: :bear: :switzerland:
+:heart: :house: :flash: :computer: :bear: :switzerland:
