@@ -1,97 +1,69 @@
 ﻿@page "/offers"
 
+@using thorstopper.Client.Services
+@using thorstopper.Client.Data
+@using System.Globalization
+
 <PageTitle>Angebotsübersicht</PageTitle>
 
 <h1>Angebotsübersicht</h1>
 <MudText>Folgende Angebote wurden für den Schadensfall ausgewählt.</MudText>
 
 <MudGrid>
-  <MudItem xs="4" Class="d-flex justify-content-center">
-      <MudCard Outlined="true">
-        <MudCardContent>
-            <MudText><strong>Anbieter:</strong></MudText>
-            <MudText Typo="Typo.body2">Handwerker Michu, Steffisweg 27, 3612 Steffisurg</MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Angebotsübersicht:</strong></MudText>
-            <MudText Typo="Typo.body2">
-              <ul>
-                <li>Neugestaltung Fassade</li>
-                <li>Reparatur Dach</li>
-              </ul>
-            </MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Offertenpreis:</strong></MudText>
-            <MudChip Variant="Variant.Outlined">50'000 CHF</MudChip>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Bounty:</strong></MudText>
-            <MudText Typo="Typo.body2">Aufgrund der Distanz wird folgendes Bounty vorgeschlagen.</MudText>
-            <MudChip Variant="Variant.Outlined" Color="Color.Success">1'000 CHF</MudChip>
+  @foreach (var item in @Elements)
+  {
+                        <MudItem xs="4" Class="d-flex justify-content-center">
+                              <MudCard Outlined="true">
+                                <MudCardContent>
+                                    <MudText><strong>Anbieter:</strong></MudText>
+                                    <MudText Typo="Typo.body2">@item.ServiceProviderName, @item.ServiceProviderAddress</MudText>
+                                    <MudText>&nbsp;</MudText>
+                                    <MudText><strong>Angebotsübersicht:</strong></MudText>
+                                    <MudText Typo="Typo.body2">
+                                      <ul>
+              @foreach (var listing in @item.OfferDescription)
+              {
+                                                      <li>@listing</li>
+              }
+                                      </ul>
+                                    </MudText>
+                                    <MudText>&nbsp;</MudText>
+                                    <MudText><strong>Offertenpreis:</strong></MudText>
+                                    <MudChip Variant="Variant.Outlined">@item.OfferPrice.ToString("C2", CultureInfo.CreateSpecificCulture("de-CH"))</MudChip>
+                                    <MudText>&nbsp;</MudText>
+          @if (@item.BountyPrice != 0)
+          {
+                                      <MudText><strong>Bounty:</strong></MudText>
+                                      <MudText Typo="Typo.body2">Aufgrund der Distanz wird folgendes Bounty vorgeschlagen.</MudText>
+                                      <MudChip Variant="Variant.Outlined" Color="Color.Success">@item.BountyPrice.ToString("C2", CultureInfo.CreateSpecificCulture("de-CH"))</MudChip>
+          }
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton Variant="Variant.Text" Color="Color.Secondary">Anbieter kontaktieren</MudButton>
+                                    <MudButton Variant="Variant.Text" Color="Color.Primary">PDF Herunterladen</MudButton>
+                                </MudCardActions>
+                              </MudCard>
+                          </MudItem>
+  }
 
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Secondary">Anbieter kontaktieren</MudButton>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">PDF Herunterladen</MudButton>
-        </MudCardActions>
-      </MudCard>
-  </MudItem>
-  <MudItem xs="4">
-    <MudCard Outlined="true">
-        <MudCardContent>
-            <MudText><strong>Anbieter:</strong></MudText>
-            <MudText Typo="Typo.body2">Handwerker Michu, Steffisweg 27, 3612 Steffisurg</MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Angebotsübersicht:</strong></MudText>
-            <MudText Typo="Typo.body2">
-              <ul>
-                <li>Neugestaltung Fassade</li>
-                <li>Reparatur Dach</li>
-              </ul>
-            </MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Offertenpreis:</strong></MudText>
-            <MudChip Variant="Variant.Outlined">50'000 CHF</MudChip>
-
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Secondary">Anbieter kontaktieren</MudButton>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">PDF Herunterladen</MudButton>
-        </MudCardActions>
-      </MudCard>
-  </MudItem>
-  <MudItem xs="4">
-    <MudCard Outlined="true">
-        <MudCardContent>
-            <MudText><strong>Anbieter:</strong></MudText>
-            <MudText Typo="Typo.body2">Handwerker Michu, Steffisweg 27, 3612 Steffisurg</MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Angebotsübersicht:</strong></MudText>
-            <MudText Typo="Typo.body2">
-              <ul>
-                <li>Neugestaltung Fassade</li>
-                <li>Reparatur Dach</li>
-              </ul>
-            </MudText>
-            <MudText>&nbsp;</MudText>
-            <MudText><strong>Offertenpreis:</strong></MudText>
-            <MudChip Variant="Variant.Outlined">50'000 CHF</MudChip>
-
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Secondary">Anbieter kontaktieren</MudButton>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">PDF Herunterladen</MudButton>
-        </MudCardActions>
-      </MudCard>
-  </MudItem>
-  <MudItem xs="12">
-    <MudButton Variant="Variant.Filled" OnClick="NavigateTo">Zurück</MudButton>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary">Angebote an Kunde versenden</MudButton>
-  </MudItem>
-</MudGrid>
+    <MudItem xs="12">
+      <MudButton Variant="Variant.Filled" OnClick="NavigateTo">Zurück</MudButton>
+      <MudButton Variant="Variant.Filled" Color="Color.Primary">Angebote an Kunde versenden</MudButton>
+    </MudItem>
+  </MudGrid>
 
 
 @code {
   [Inject] NavigationManager NavigationManager { get; set; }
+  [Inject] IOfferService OfferServiceInstance { get; set; }
 
+
+  private IEnumerable<Offer> Elements;
+
+  protected async override void OnInitialized()
+  {
+    Elements = await OfferServiceInstance.GetOffers();
+  }
   private async Task NavigateTo()
   {
     NavigationManager.NavigateTo("/case-detail", forceLoad: false);
