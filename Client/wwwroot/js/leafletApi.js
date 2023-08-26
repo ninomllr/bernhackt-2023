@@ -57,24 +57,26 @@ window.leafletApiJsFunctions = {
             iconSize: [24, 40],
             // iconAnchor: [24, 40],
         });
-        
-        if (dataCase) {
-            new L.marker([dataCase.lat, dataCase.lng], {draggable: false, icon: svgIcon})
-                .addTo(map);
-        }
-        
-        if (dataCases != null) {
-            for (let i = 0; i < dataCases.length; i++) {
-                new L.marker([dataCases[i]['lat'], dataCases[i]['lng']], {draggable: false, icon: svgIcon})
-                    .addTo(map);    
-            }
-        }
 
         if (dataEmergencies != null) {
             for (let i = 0; i < dataEmergencies.length; i++) {
                 new L.circle([dataEmergencies[i]['lat'],dataEmergencies[i]['lng']], dataEmergencies[i]['radius']*1000,  {color: "red", opacity:.5}).addTo(map);
             }
         }
+        
+        if (dataCase) {
+            new L.marker([dataCase.lat, dataCase.lng], {draggable: false, icon: svgIcon, riseOnHover: true})
+                .addTo(map);
+        }
+        
+        if (dataCases != null) {
+            for (let i = 0; i < dataCases.length; i++) {
+                new L.marker([dataCases[i]['lat'], dataCases[i]['lng']], {draggable: false, icon: svgIcon, riseOnHover: true})
+                    .addTo(map);    
+            }
+        }
+
+
 
     }}
 //]]>
