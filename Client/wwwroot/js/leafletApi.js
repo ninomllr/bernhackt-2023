@@ -94,6 +94,7 @@ window.leafletApiJsFunctions = {
         const svgIcon = L.divIcon({
             html: `
             <svg  viewBox="-4 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
     <title>map-marker</title>
     <defs>
 
@@ -116,7 +117,9 @@ window.leafletApiJsFunctions = {
     </g>
 </svg>
             `,
+            className: "",
             iconSize: [24, 40],
+            // iconAnchor: [24, 40],
         });
         
         // Add a draggable marker to map
