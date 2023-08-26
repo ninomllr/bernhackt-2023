@@ -99,8 +99,6 @@ private IEnumerable<Case> Elements = new List<Case>() {
 
 private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
 {
-  clickedEvents.Add("Row has been clicked");
-
   NavigationManager.NavigateTo("/case-detail", forceLoad: false);
 }
 
