@@ -15,8 +15,6 @@
       HorizontalScrollbar="true"
       Breakpoint="Breakpoint.Sm"
       @ref="mudTable"
-      RowClassFunc="@SelectedRowClassFunc"
-      OnRowClick="RowClickEvent"
       T="Case"
       Style="width: 100%"
     >
@@ -44,7 +42,6 @@
         }
         else
         {
-          
           <MudTd DataLabel="Bounty">
             <MudChip Variant="Variant.Text" Color="Color.Error">@context.Bounty</MudChip>
           </MudTd>
@@ -65,85 +62,66 @@
 </MudGrid>
 
 @code {
+  [Inject] NavigationManager NavigationManager { get; set; }
+  [Inject] ICaseService CaseServiceInstance { get; set; }
+  [Inject] IEmergencyService EmergencyServiceInstance { get; set; }
+    
+  private int selectedRowNumber = -1;
+  private MudTable<Case> mudTable;
+  private List<string> clickedEvents = new();
+
+  // Use JavaScript in Blazor
+  [Inject] IJSRuntime JsRuntime { get; set; }
+  // Use Http request (Axios in JS) in Blazor
+  [Inject] HttpClient HttpClient { get; set; }
+
+  private LeafletService LeafletService { get; set; }
+  private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
 
 
-[Inject] NavigationManager NavigationManager { get; set; }
-[Inject] ICaseService CaseServiceInstance { get; set; }
-
-
-private int selectedRowNumber = -1;
-private MudTable<Case> mudTable;
-private List<string> clickedEvents = new();
-
-// Use JavaScript in Blazor
-[Inject] IJSRuntime JsRuntime { get; set; }
-// Use Http request (Axios in JS) in Blazor
-[Inject] HttpClient HttpClient { get; set; }
-
-private LeafletService LeafletService { get; set; }
-private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
-
-
-// Action after Blazor render
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-  if (firstRender)
+  // Action after Blazor render
+  protected override async Task OnAfterRenderAsync(bool firstRender)
   {
-    // Connection with JS script 
-    await JsRuntime.InvokeAsync<object>(
-      "leafletApiJsFunctions.initialize",
-      Elements,
-      LeafLetServiceRef);
+    if (firstRender)
+    {
+      // Connection with JS script 
+      await JsRuntime.InvokeAsync<object>(
+        "leafletApiJsFunctions.initialize",
+        Elements, Emergencies,
+        LeafLetServiceRef);
+    }
   }
-}
 
-private IEnumerable<Case> Elements;
+  private IEnumerable<Case> Elements;
+  private IEnumerable<Emergency> Emergencies;
 
-protected async override void OnInitialized()
-{
-  LeafletService = new LeafletService();
-  Elements = await CaseServiceInstance.GetCases();
-  LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
-
-  LeafletService.Notify += OnNotify;
-}
-
-// Callback 
-private async Task OnNotify()
-{
-  await InvokeAsync(StateHasChanged);
-  Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
-}
-
-public void Dispose()
-{
-  LeafletService.Notify -= OnNotify;
-
-  LeafLetServiceRef?.Dispose();
-}
-
-private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
-{
-  NavigationManager.NavigateTo("/case-detail", forceLoad: false);
-}
-
-private string SelectedRowClassFunc(Case element, int rowNumber)
-{
-  if (selectedRowNumber ==
-  rowNumber)
+  protected override async void OnInitialized()
   {
-    selectedRowNumber = -1; clickedEvents.Add("Selected Row: None");
-    return string.Empty;
+    LeafletService = new LeafletService();
+    Elements = await CaseServiceInstance.GetCases();
+    Emergencies = await EmergencyServiceInstance.GetEmergency();
+    LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+
+    LeafletService.Notify += OnNotify;
   }
-  else if (mudTable.SelectedItem != null &&
-    mudTable.SelectedItem.Equals(element))
+
+  // Callback 
+  private async Task OnNotify()
   {
-    selectedRowNumber = rowNumber;
-    clickedEvents.Add($"Selected Row: {rowNumber}"); return "selected";
+    await InvokeAsync(StateHasChanged);
+    Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
   }
-  else
+
+  public void Dispose()
   {
-    return string.Empty;
+    LeafletService.Notify -= OnNotify;
+
+    LeafLetServiceRef?.Dispose();
   }
-}
+
+  private void RowClickEvent(Case data)
+  {
+    NavigationManager.NavigateTo($"/case-detail", forceLoad: false);
+  }
+  
 } 
