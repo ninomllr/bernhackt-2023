@@ -7,7 +7,7 @@ public class Ai
 	public Ai(string text)
 	{
 		// Please stop looking... There is no real AI here ;-)
-		rnd = new Random();
+		rnd = new Random(text.Length);
 	}
 
 	public int PredictScore()

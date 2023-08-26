@@ -48,11 +48,7 @@
         }
         
         <MudTd DataLabel="Actions">
-
-           <MudIconButton Icon="fas fa-atom" Color="Color.Primary" @onClick="@((e, context) => RowClickEventDetails
-        (context
-        .CaseNumber))
-           "></MudIconButton>
+          <MudIconButton Icon="fas fa-atom" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(@context.CaseNumber))"></MudIconButton>
           <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary" OnClick="RowClickEventOffer"></MudIconButton>
         </MudTd>
       </RowTemplate>
