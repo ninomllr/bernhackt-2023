@@ -1,6 +1,7 @@
 ﻿@page "/case-list"
 
 @using thorstopper.Client.Services
+@using thorstopper.Client.Data
 
 <PageTitle>Auftragsliste</PageTitle>
 
@@ -51,65 +52,61 @@
 
 @code {
 
+
 [Inject] NavigationManager NavigationManager { get; set; }
+[Inject] ICaseService CaseServiceInstance { get; set; }
+
 
 private int selectedRowNumber = -1;
 private MudTable<Case> mudTable;
 private List<string> clickedEvents = new();
-  
-  // Use JavaScript in Blazor
-  [Inject] IJSRuntime JsRuntime { get; set; }
-  // Use Http request (Axios in JS) in Blazor
-  [Inject] HttpClient HttpClient { get; set; }
-    
-  private LeafletService LeafletService { get; set; }
-  private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
-    
 
-  // Action after Blazor render
-  protected override async Task OnAfterRenderAsync(bool firstRender)
+// Use JavaScript in Blazor
+[Inject] IJSRuntime JsRuntime { get; set; }
+// Use Http request (Axios in JS) in Blazor
+[Inject] HttpClient HttpClient { get; set; }
+
+private LeafletService LeafletService { get; set; }
+private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
+
+
+// Action after Blazor render
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+  if (firstRender)
   {
-    if (firstRender)
-    {
     // Connection with JS script 
-      await JsRuntime.InvokeAsync<object>(
-        "leafletApiJsFunctions.initialize",  
-        Elements, 
-        LeafLetServiceRef);
-    }
+    await JsRuntime.InvokeAsync<object>(
+      "leafletApiJsFunctions.initialize",
+      Elements,
+      LeafLetServiceRef);
   }
-    
-  protected override void OnInitialized()
-  {
-    LeafletService = new LeafletService();
-    LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+}
 
-    LeafletService.Notify += OnNotify;
-  }
-    
-  // Callback 
-  private async Task OnNotify()
-  {
-    await InvokeAsync(StateHasChanged);
-    Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
-  }
-    
-  public void Dispose()
-  {
-    LeafletService.Notify -= OnNotify;
+private IEnumerable<Case> Elements;
 
-    LeafLetServiceRef?.Dispose();
-  }
+protected async override void OnInitialized()
+{
+  LeafletService = new LeafletService();
+  Elements = await CaseServiceInstance.GetCases();
+  LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
 
-// @TODO Make a service out of this
-private IEnumerable<Case> Elements = new List<Case>() {
-  new Case() { CaseNumber = 1, CaseName = "Test 1", Address = "Weg 1, 3007 Bern", Lat = 46.941560, Lng = 7.425820, CustomerName = 
-    "Tom Tommasson", Date = DateTime.Now, Bounty = true},
-  new Case() { CaseNumber = 1, CaseName = "Test 2", Address = "Kapellenstrasse 26, 3011 Bern", Lat = 46.945420, Lng = 7.433950, CustomerName = 
-    "Peter Musterman", Date = DateTime.Now, Bounty = false},
-  new Case() { CaseNumber = 1, CaseName = "Test 2", Address = "Lindenhofstrasse 1, 3048 Ittigen", Lat = 46.979641, Lng = 7.460920, CustomerName = 
-    "Hans Muster", Date = DateTime.Now, Bounty = true},
-};
+  LeafletService.Notify += OnNotify;
+}
+
+// Callback 
+private async Task OnNotify()
+{
+  await InvokeAsync(StateHasChanged);
+  Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
+}
+
+public void Dispose()
+{
+  LeafletService.Notify -= OnNotify;
+
+  LeafLetServiceRef?.Dispose();
+}
 
 private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
 {

@@ -1,5 +1,5 @@
 using System;
-namespace thorstopper.Client;
+namespace thorstopper.Client.Data;
 
 public class Case
 {
