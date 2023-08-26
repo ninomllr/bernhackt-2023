@@ -9,6 +9,8 @@
 <MudGrid>
   <MudItem xs="6" Class="d-flex justify-content-center">
     <h1>test</h1>
+    <MudText>KI Riskscoring</MudText>
+    <MudChip Variant="Variant.Outlined" Color="Color.Success">@AiPredictionRiskScore</MudChip>
   </MudItem>
   <MudItem xs="6">
     <h1>test</h1>
@@ -32,7 +34,17 @@
   {
     Elements = await CaseServiceInstance.GetCases();
     Element = Elements.FirstOrDefault(x => x.CaseNumber == Id);
+    
+  // @TODO Prediction test
+    AiPredictionRiskScore = await AIService.GetAIRecommendation("text");
   }
+
+
+[Inject] IAIClassifierService AIService { get; set; }
+
+
+private int AiPredictionRiskScore;
+  
 
   private async Task NavigateTo(string path)
   {
