@@ -35,10 +35,24 @@
         <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
         <MudTd DataLabel="Address">@context.Address</MudTd>
         <MudTd DataLabel="Date">@context.Date</MudTd>
-        <MudTd DataLabel="Bounty">@context.Bounty</MudTd>
+        @if (context.Bounty)
+        {
+          <MudTd DataLabel="Bounty">
+            <MudChip Variant="Variant.Text" Color="Color.Success">@context.Bounty</MudChip>
+          </MudTd>
+          
+        }
+        else
+        {
+          
+          <MudTd DataLabel="Bounty">
+            <MudChip Variant="Variant.Text" Color="Color.Error">@context.Bounty</MudChip>
+          </MudTd>
+        }
+        
         <MudTd DataLabel="Actions">
-          <MudIconButton Icon="@Icons.Material.Filled.Description" Color="Color.Primary" aria-label="description"></MudIconButton>
-          <MudIconButton Icon="@Icons.Material.Filled.Attractions" Color="Color.Secondary" aria-label="offer"></MudIconButton>
+          <MudIconButton Icon="fas fa-atom" Color="Color.Primary"></MudIconButton>
+          <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary"></MudIconButton>
         </MudTd>
       </RowTemplate>
     </MudTable>
