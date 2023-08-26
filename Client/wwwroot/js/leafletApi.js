@@ -60,7 +60,7 @@ window.leafletApiJsFunctions = {
         
         for (let i = 0; i < dataCases.length; i++) {
             new L.marker([dataCases[i]['lat'], dataCases[i]['lng']], {draggable: false, icon: svgIcon})
-                .addTo(map);
+                .addTo(map);    
         }
 
         if (dataEmergencies.length > 0) {

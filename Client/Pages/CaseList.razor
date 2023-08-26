@@ -2,6 +2,7 @@
 
 @using thorstopper.Client.Services
 @using thorstopper.Client.Data
+@implements IDisposable
 
 <PageTitle>Auftragsliste</PageTitle>
 
@@ -36,7 +37,7 @@
         @if (context.Bounty != null)
         {
           <MudTd DataLabel="Bounty">
-            <MudChip Variant="Variant.Text" Color="@((bool)context.Bounty ? Color.Success : Color.Error)">"@((bool)context.Bounty ? "Ja" : "Nein")"</MudChip>
+            <MudChip Variant="Variant.Text" Color="@((bool)context.Bounty ? Color.Success : Color.Error)">@((bool)context.Bounty ? "Ja" : "Nein")</MudChip>
           </MudTd>
           
         }
@@ -48,7 +49,7 @@
         }
         
         <MudTd DataLabel="Actions">
-          <MudIconButton Icon="fas fa-atom" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(@context.CaseNumber))"></MudIconButton>
+          <MudIconButton Icon="fas fa-atom" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(context.CaseNumber))"></MudIconButton>
           <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary" OnClick="RowClickEventOffer"></MudIconButton>
         </MudTd>
       </RowTemplate>

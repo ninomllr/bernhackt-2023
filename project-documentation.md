@@ -26,7 +26,7 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 ### Komponente und Frameworks
 | CODE         | DB     | INFRA |
 |--------------|-----------|------------|
-| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.png"> | TO BE DEFINED | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
+| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.png"> | in momory | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
 
 ### Aufgabe pro Tool
 * Azure: Einfaches Hosting und Bereitstellen
@@ -52,7 +52,8 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 * Anbinden APIs (zB Wetterdaten) also Source für Notfall-Raduisberechnung
 
 ## Arbeitsverlauf
-FOTOS EINFUEGEN
+<img src="./assets/img1.JPG" width="150">
+<img src="./assets/img2.JPG" width="150">
 
 
 ## Mitwirkende
