@@ -1,16 +1,14 @@
 ﻿@page "/case-list"
 
-@using System.Net.Http.Json
-@using thorstopper.Client
-
-@inject HttpClient httpClient
+@using System.Text.Json
+@using thorstopper.Client.Services
 
 <PageTitle>Auftragsliste</PageTitle>
 
 <h1>Auftragsliste</h1>
 
 <MudGrid>
-  <MudItem xs="12" Class="d-flex justify-content-center">
+  <MudItem md="6" lg="6" Class="d-flex">
     <MudTable
       Items="@Elements.Take(4)"
       Hover="true"
@@ -30,6 +28,11 @@
       </RowTemplate>
     </MudTable>
   </MudItem>
+  
+  <MudItem md="6" lg="6" Class="d-flex">
+    @* Init map into page *@
+    <div id="map" style="width:100%; height:400px;"></div>
+  </MudItem>
 </MudGrid>
 
 @code {
@@ -39,10 +42,59 @@
 private int selectedRowNumber = -1;
 private MudTable<Case> mudTable;
 private List<string> clickedEvents = new();
+  
+  // Use JavaScript in Blazor
+  [Inject] IJSRuntime JsRuntime { get; set; }
+  // Use Http request (Axios in JS) in Blazor
+  [Inject] HttpClient HttpClient { get; set; }
+    
+  private LeafletService LeafletService { get; set; }
+  private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
+    
+
+  // Action after Blazor render
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+    // Connection with JS script 
+      await JsRuntime.InvokeAsync<object>(
+        "leafletApiJsFunctions.initialize",  
+        Elements, 
+        LeafLetServiceRef);
+    }
+  }
+    
+  protected override void OnInitialized()
+  {
+    LeafletService = new LeafletService();
+    LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+
+    LeafletService.Notify += OnNotify;
+  }
+    
+  // Callback 
+  private async Task OnNotify()
+  {
+    await InvokeAsync(StateHasChanged);
+    Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
+  }
+    
+  public void Dispose()
+  {
+    LeafletService.Notify -= OnNotify;
+
+    LeafLetServiceRef?.Dispose();
+  }
 
 // @TODO Make a service out of this
 private IEnumerable<Case> Elements = new List<Case>() {
-  new Case() { CaseNumber = 1, CaseName = "Test", Address = "Weg 1, 3007 Bern", CustomerName = "Tom Tommasson" },
+  new Case() { CaseNumber = 1, CaseName = "Test 1", Address = "Weg 1, 3007 Bern", Lat = 46.941560, Lng = 7.425820, CustomerName = 
+    "Tom Tommasson", Date = DateTime.Now, Bounty = true},
+  new Case() { CaseNumber = 1, CaseName = "Test 2", Address = "Kapellenstrasse 26, 3011 Bern", Lat = 46.945420, Lng = 7.433950, CustomerName = 
+    "Peter Musterman", Date = DateTime.Now, Bounty = false},
+  new Case() { CaseNumber = 1, CaseName = "Test 2", Address = "Lindenhofstrasse 1, 3048 Ittigen", Lat = 46.979641, Lng = 7.460920, CustomerName = 
+    "Hans Muster", Date = DateTime.Now, Bounty = true},
 };
 
 private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
