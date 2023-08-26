@@ -1,5 +1,7 @@
 ﻿@page "/offers/{ParamId}"
 
+@inject IJSRuntime JSRuntime
+
 @using thorstopper.Client.Services
 @using thorstopper.Client.Data
 @using System.Globalization
@@ -59,7 +61,7 @@
   }
 
     <MudItem xs="12">
-      <MudButton Variant="Variant.Filled"  OnClick="@(() => NavigateBack(@ParamId))" Class="mr-6">Zurück</MudButton>
+      <MudButton Variant="Variant.Filled"  OnClick="@(GoBack)" Class="mr-6">Zurück</MudButton>
     </MudItem>
 </MudGrid>
 
@@ -88,5 +90,10 @@
   {
     NavigationManager.NavigateTo("/case-detail/" + param, forceLoad: false);
   }
+    
+    private async Task GoBack()
+    {
+        await JSRuntime.InvokeVoidAsync("history.back");
+    }
 
 }
