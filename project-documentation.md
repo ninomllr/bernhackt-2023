@@ -20,6 +20,7 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 * Bewusst für Open Source entschieden
 * Bewusst für Infrastructure as Code entschieden
 * Entity Model First für das Datenmodell
+* Eigenes AI Model, da out of the box nicht für unseren Use Case zugeschnitten
 
 ## Technischer Aufbau
 ### Komponente und Frameworks
@@ -36,8 +37,6 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 * Leaflet: Maps
 * Github Actions: CI / CD
 
-### Daten
-* Naaaah, alles mocked, lol
 
 ## Implementation
 
@@ -47,17 +46,17 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 <img src="./assets/qrcode.png" width="150">
 
 ### Out of Scope
-* Weltfrieden
+* Auftrags- und Abrechnungstool für Handwerker
 
 ### Zukunftsplan
-* ...
+* Anbinden APIs (zB Wetterdaten) also Source für Notfall-Raduisberechnung
 
 ## Arbeitsverlauf
 FOTOS EINFUEGEN
 
 
 ## Mitwirkende
-Florence, Nico, Nino, Michal, Oliver
+Florence, Nico, Nino, Michal, Olivier
 ___
 
 :heart: :house: :computer: :bear: :switzerland:
