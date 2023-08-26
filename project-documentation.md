@@ -25,7 +25,7 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 ### TODO Komponente und Frameworks
 | CODE         | DB     | INFRA |
 |--------------|-----------|------------|
-| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.jpeg"> | TO BE DEFINED | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
+| <img src="./assets/csharp_logo.jpeg" width="150"> <img src="./assets/blazor_logo.jpeg" width="150"> <img src="./assets/leaflet_logo.png"> | TO BE DEFINED | <img src="./assets/azure_logo.jpeg" width="70"> <img src="./assets/teraform_logo.jpeg" width="150"> <img src="./assets/docker_logo.jpeg" width="150"> <img src="./assets/git_logo.jpeg" width="80">
 
 ### Aufgabe pro Tool
 * Azure: Einfaches Hosting und Bereitstellen
@@ -60,4 +60,4 @@ FOTOS EINFUEGEN
 Florence, Nico, Nino, Michal, Oliver
 ___
 
-:heart: :house: :flash: :computer: :bear: :switzerland:
+:heart: :house: :computer: :bear: :switzerland:
