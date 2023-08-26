@@ -34,17 +34,24 @@
 
 @code {
 
+[Inject] NavigationManager NavigationManager { get; set; }
+
 private int selectedRowNumber = -1;
 private MudTable<Case> mudTable;
 private List<string> clickedEvents = new();
 
+// @TODO Make a service out of this
 private IEnumerable<Case> Elements = new List<Case>() {
   new Case() { CaseNumber = 1, CaseName = "Test", Address = "Weg 1, 3007 Bern", CustomerName = "Tom Tommasson" },
-  };
+};
+
 private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
 {
   clickedEvents.Add("Row has been clicked");
+
+  NavigationManager.NavigateTo("/case-detail", forceLoad: false);
 }
+
 private string SelectedRowClassFunc(Case element, int rowNumber)
 {
   if (selectedRowNumber ==
