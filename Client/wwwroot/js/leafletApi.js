@@ -1,19 +1,6 @@
 //<![CDATA[
 window.leafletApiJsFunctions = {
-    initialize: function (address, dotnetHelper) {
-
-        let lat
-        let lng
-        
-        // Check if address is not null
-        if (address.length > 0)
-        {
-            lat = address[0].attrs.lat
-            lng = address[0].attrs.lon
-        } else {
-            lat = address.lat
-            lng = address.lng
-        }
+    initialize: function (data, dotnetHelper) {
     
         // Take leaflet init from #map id 
         const container = L.DomUtil.get('map');
