@@ -1,15 +1,14 @@
 
-# NOMNOMNOM BernHackt GVB Operation Thunderstorm
+# NOMNOMNOM BärnHäckt GVB Operation Thunderstorm
 
-Lorem ipsum ...
-
+Unser Thorstopper um das Handwerkerchaos zu beseitigen.
 
 
 ---
 
 # Documentation
 
-[BernHackt - Project Project Documentation](./project-documentation.md)
+[BärnHäckt - Project Project Documentation](./project-documentation.md)
 
 ---
 
