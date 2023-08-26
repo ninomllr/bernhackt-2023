@@ -2,6 +2,9 @@
 window.leafletApiJsFunctions = {
     initialize: function (data, dotnetHelper) {
     
+        let lat = 46.947975
+            let lng =7.447447
+        
         // Take leaflet init from #map id 
         const container = L.DomUtil.get('map');
         // Only one map init is allowed 
@@ -41,7 +44,7 @@ window.leafletApiJsFunctions = {
         L.control.layers(baseMaps, {}, { collapsed: false }).addTo(map);
 
         // Set center with zoom level 
-        map.setView([lat, lng], 16);
+        map.setView([lat, lng], 12);
 
         function getMaxBounds(crs) {
             const { bounds } = crs.projection;
@@ -64,7 +67,7 @@ window.leafletApiJsFunctions = {
                 map.setMaxBounds(crs instanceof L.Proj.CRS ? getMaxBounds(crs) : null);
                 map._resetView(center, zoom, true);
                 marker.update();
-                map.setView([lat, lng], 16);
+                map.setView([lat, lng], 12);
             } else {
                 map.removeLayer(mapLayer);
                 map.options.crs = L.CRS.EPSG2056;
@@ -73,7 +76,7 @@ window.leafletApiJsFunctions = {
                 map.setMaxBounds(crs instanceof L.Proj.CRS ? getMaxBounds(crs) : null);
                 map._resetView(center, zoom, true);
                 marker.update();
-                map.setView([lat, lng], 16);
+                map.setView([lat, lng], 12);
             }
             layer.redraw();
         })
@@ -109,7 +112,13 @@ window.leafletApiJsFunctions = {
             // iconAnchor: [24, 40],
         });
         
+        for (let i = 0; i < data.length; i++) {
+            new L.marker([data[i]['lat'], data[i]['lng']], {draggable: false, icon: svgIcon})
+                .addTo(map);
+        }
+
+        
         // Add a draggable marker to map
-        const marker =  L.marker([lat, lng], {draggable: false, icon: svgIcon}).addTo(map);
+        // const marker =  L.marker([lat, lng], {draggable: false, icon: svgIcon}).addTo(map);
     }}
 //]]>
