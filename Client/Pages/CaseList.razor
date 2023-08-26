@@ -1,7 +1,67 @@
 ﻿@page "/case-list"
 
+@using System.Net.Http.Json
+@using thorstopper.Client
+
+@inject HttpClient httpClient
+
 <PageTitle>Auftragsliste</PageTitle>
 
 <h1>Auftragsliste</h1>
 
+<MudGrid>
+  <MudItem xs="12" Class="d-flex justify-content-center">
+    <MudTable
+      Items="@Elements.Take(4)"
+      Hover="true"
+      Breakpoint="Breakpoint.Sm"
+      @ref="mudTable"
+      RowClassFunc="@SelectedRowClassFunc"
+      OnRowClick="RowClickEvent"
+      T="Case"
+    >
+      <HeaderContent>
+        <MudTh>Auftragsnummer</MudTh>
+        <MudTh>Kundenname</MudTh>
+      </HeaderContent>
+      <RowTemplate>
+        <MudTd DataLabel="Nr">@context.CaseNumber</MudTd>
+        <MudTd DataLabel="CustomerName">@context.CustomerName</MudTd>
+      </RowTemplate>
+    </MudTable>
+  </MudItem>
+</MudGrid>
 
+@code {
+
+private int selectedRowNumber = -1;
+private MudTable<Case> mudTable;
+private List<string> clickedEvents = new();
+
+private IEnumerable<Case> Elements = new List<Case>() {
+  new Case() { CaseNumber = 1, CaseName = "Test", Address = "Weg 1, 3007 Bern", CustomerName = "Tom Tommasson" },
+  };
+private void RowClickEvent(TableRowClickEventArgs<Case> tableRowClickEventArgs)
+{
+  clickedEvents.Add("Row has been clicked");
+}
+private string SelectedRowClassFunc(Case element, int rowNumber)
+{
+  if (selectedRowNumber ==
+  rowNumber)
+  {
+    selectedRowNumber = -1; clickedEvents.Add("Selected Row: None");
+    return string.Empty;
+  }
+  else if (mudTable.SelectedItem != null &&
+    mudTable.SelectedItem.Equals(element))
+  {
+    selectedRowNumber = rowNumber;
+    clickedEvents.Add($"Selected Row: {rowNumber}"); return "selected";
+  }
+  else
+  {
+    return string.Empty;
+  }
+}
+} 

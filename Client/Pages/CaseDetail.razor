@@ -1,0 +1,26 @@
+﻿@page "/case-detail"
+
+<PageTitle>Auftragsdetails</PageTitle>
+
+<h1>Auftragsdetails</h1>
+
+<MudGrid>
+  <MudItem xs="6" Class="d-flex justify-content-center">
+    <h1>test</h1>
+  </MudItem>
+  <MudItem xs="6">
+    <h1>test</h1>
+  </MudItem>
+</MudGrid>
+
+<MudButton Variant="Variant.Filled" OnClick="NavigateTo">Offerten anschauen</MudButton>
+
+@code {
+  [Inject] NavigationManager NavigationManager { get; set; }
+
+private async Task NavigateTo()
+{
+  NavigationManager.NavigateTo("/offers", forceLoad: false);
+}
+
+} 
