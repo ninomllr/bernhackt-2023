@@ -12,30 +12,30 @@
       <MudCardContent>
         @if (Element.Bounty != null)
         {
-          <MudText><MudChip Variant="Variant.Filled" Color="Color.Success" Class="mb-2">KI Riskscoring 
-            @AiPredictionRiskScore</MudChip></MudText>
+              <MudText><MudChip Variant="Variant.Filled" Color="Color.Success" Class="mb-2">KI Riskscoring 
+              @AiPredictionRiskScore</MudChip></MudText>
         }
-          
+
         <div style="display: flex;" class="mb-2">
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;" >Name:</MudText>
           <MudText Typo="Typo.body1">@Element.CustomerName</MudText>
         </div>
-          
+
         <div style="display: flex;" class="mb-2">
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;" >Datum:</MudText>
           <MudText Typo="Typo.body1">@Element.Date</MudText>
         </div>
-          
+
         <div style="display: flex; " class="mb-2">
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;">Adresse:</MudText>
           <MudText Typo="Typo.body1">@Element.Address</MudText>
         </div>
-          
+
         <div style="display: flex; " class="mb-2">
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;">Schadensursache :</MudText>
           <MudText Typo="Typo.body1">Sturmwind</MudText>
         </div>
-          
+
         <MudText Typo="Typo.body1" Style="font-weight: bold;">Beschreibung:</MudText>
         <MudText Typo="Typo.body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -43,7 +43,7 @@
       </MudCardContent>
     </MudCard>
   </MudItem>
-  
+
   <MudItem xs="6">
     <div id="map" style="width:100%; height:400px;"></div>
   </MudItem>
@@ -71,78 +71,83 @@
 
 <MudGrid Class="mt-10 ml-1">
     <MudButton Variant="Variant.Filled" OnClick='@((e)=> NavigateTo("/case-list"))' Class="mr-4">Zurück</MudButton>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='@((e)=> NavigateTo("/offers"))'>Offerten anschauen</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => NavigateToOffer(@ParamId))">Offerten anschauen</MudButton>
   </MudGrid>
 
-@code {
-[Inject] NavigationManager NavigationManager { get; set; }
-[Inject] ICaseService CaseServiceInstance { get; set; }
-// Use JavaScript in Blazor
-[Inject] IJSRuntime JsRuntime { get; set; }
-// Use Http request (Axios in JS) in Blazor
-[Inject] HttpClient HttpClient { get; set; }
-[Inject] IAIClassifierService AIService { get; set; }
-  
-  private bool arrows = true;
-  private bool bullets = true;
-  private bool enableSwipeGesture = true;
-  private bool autocycle = false;
-  private Transition transition = Transition.Slide;
+  @code {
+    [Inject] NavigationManager NavigationManager { get; set; }
+    [Inject] ICaseService CaseServiceInstance { get; set; }
+    // Use JavaScript in Blazor
+    [Inject] IJSRuntime JsRuntime { get; set; }
+    // Use Http request (Axios in JS) in Blazor
+    [Inject] HttpClient HttpClient { get; set; }
+    [Inject] IAIClassifierService AIService { get; set; }
 
-[Parameter]
-public string ParamId { get; set; }
-public int Id { get { return Int32.Parse(ParamId); } }
-private IEnumerable<Case> Elements;
-private Case Element;
-private int AiPredictionRiskScore;
-private LeafletService LeafletService { get; set; }
-private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = false;
+    private Transition transition = Transition.Slide;
 
-protected override async void OnInitialized()
-{
-  Elements = await CaseServiceInstance.GetCases();
-  Element = Elements.FirstOrDefault(x => x.CaseNumber == Id);
+    [Parameter]
+    public string ParamId { get; set; }
+    public int Id { get { return Int32.Parse(ParamId); } }
+    private IEnumerable<Case> Elements;
+    private Case Element;
+    private int AiPredictionRiskScore;
+    private LeafletService LeafletService { get; set; }
+    private DotNetObjectReference<LeafletService> LeafLetServiceRef { get; set; }
 
-  // @TODO Prediction test
-  AiPredictionRiskScore = await AIService.GetAIRecommendation("text");
+    protected override async void OnInitialized()
+    {
+      Elements = await CaseServiceInstance.GetCases();
+      Element = Elements.FirstOrDefault(x => x.CaseNumber == Id);
 
-  LeafletService = new LeafletService();
-  LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
+      // @TODO Prediction test
+      AiPredictionRiskScore = await AIService.GetAIRecommendation("text");
 
-  LeafletService.Notify += OnNotify;
-}
+      LeafletService = new LeafletService();
+      LeafLetServiceRef = DotNetObjectReference.Create(LeafletService);
 
-  // Callback 
-  private async Task OnNotify()
-  {
-    await InvokeAsync(StateHasChanged);
-    Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
-  }
+      LeafletService.Notify += OnNotify;
+    }
 
-  public void Dispose()
-  {
+    // Callback 
+    private async Task OnNotify()
+    {
+      await InvokeAsync(StateHasChanged);
+      Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
+    }
+
+    public void Dispose()
+    {
     LeafletService.Notify -= OnNotify;
 
     LeafLetServiceRef?.Dispose();
-  }
+    }
 
-  private async Task NavigateTo(string path)
-  {
+    private async Task NavigateTo(string path)
+    {
     NavigationManager.NavigateTo(path, forceLoad: false);
-  }
+    }
 
-  // Action after Blazor render
-  protected override async Task OnAfterRenderAsync(bool firstRender)
-  {
+    private async Task NavigateToOffer(string id)
+    {
+    NavigationManager.NavigateTo("/offers/" + id, forceLoad: false);
+    }
+
+    // Action after Blazor render
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
     if (firstRender)
     {
-      // Connection with JS script 
-      await JsRuntime.InvokeAsync<object>(
-        "leafletApiJsFunctions.initialize",
-        null, null, Element,
-        LeafLetServiceRef);
+    // Connection with JS script 
+    await JsRuntime.InvokeAsync<object>(
+    "leafletApiJsFunctions.initialize",
+    null, null, Element,
+    LeafLetServiceRef);
     }
-  }
+    }
 
 
-} 
+  } 

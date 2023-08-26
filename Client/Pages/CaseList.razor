@@ -50,7 +50,7 @@
         
         <MudTd DataLabel="Actions">
           <MudIconButton Icon="fas fa-atom" Color="Color.Primary" OnClick="@(() => RowClickEventDetails(context.CaseNumber))"></MudIconButton>
-          <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary" OnClick="RowClickEventOffer"></MudIconButton>
+          <MudIconButton Icon="fas fa-fighter-jet" Color="Color.Secondary" OnClick="@(() => RowClickEventOffer(context.CaseNumber))"></MudIconButton>
         </MudTd>
       </RowTemplate>
     </MudTable>
@@ -120,14 +120,14 @@
     LeafLetServiceRef?.Dispose();
   }
 
-  private void RowClickEventDetails(int Id)
+  private void RowClickEventDetails(int id)
   {
-    NavigationManager.NavigateTo($"/case-detail/{Id}", forceLoad: false);
+    NavigationManager.NavigateTo($"/case-detail/{id}", forceLoad: false);
   }
   
-  private void RowClickEventOffer()
+  private void RowClickEventOffer(int id)
   {
-    NavigationManager.NavigateTo($"/offers", forceLoad: false);
+    NavigationManager.NavigateTo($"/offers/{id}", forceLoad: false);
   }
   
 } 
