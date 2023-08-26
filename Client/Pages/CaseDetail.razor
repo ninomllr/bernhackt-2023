@@ -1,5 +1,6 @@
 ﻿@page "/case-detail"
 @using thorstopper.Client.Data
+@using thorstopper.Client.Services
 
 <PageTitle>Auftragsdetails</PageTitle>
 
@@ -8,6 +9,8 @@
 <MudGrid>
   <MudItem xs="6" Class="d-flex justify-content-center">
     <h1>test</h1>
+    <MudText>KI Riskscoring</MudText>
+    <MudChip Variant="Variant.Outlined" Color="Color.Success">@AiPredictionRiskScore</MudChip>
   </MudItem>
   <MudItem xs="6">
     <h1>test</h1>
@@ -19,9 +22,18 @@
 
 @code {
   [Inject] NavigationManager NavigationManager { get; set; }
-  
-  
-  
+
+
+[Inject] IAIClassifierService AIService { get; set; }
+
+
+private int AiPredictionRiskScore;
+
+protected async override void OnInitialized()
+{
+  // @TODO Prediction test
+  AiPredictionRiskScore = await AIService.GetAIRecommendation("text");
+}
 
 private async Task NavigateTo(string path)
 {

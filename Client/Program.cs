@@ -13,6 +13,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<ICaseService, CaseService>();
 builder.Services.AddScoped<IEmergencyService, EmergencyService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<IAIClassifierService, AIClassifierService>();
 
 
 await builder.Build().RunAsync();
