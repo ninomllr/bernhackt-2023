@@ -1,5 +1,4 @@
-﻿using System.Xml.Xsl.Runtime;
-@page "/case-detail/{ParamId}"
+﻿@page "/case-detail/{ParamId}"
 @using thorstopper.Client.Data
 @using thorstopper.Client.Services
 
@@ -7,19 +6,73 @@
 
 <h1>Auftragsdetails</h1>
 
-<MudGrid>
-  <MudItem xs="6" Class="d-flex justify-content-center">
-      <MudText><MudChip Variant="Variant.Filled" Color="Color.Success">KI Riskscoring @AiPredictionRiskScore</MudChip></MudText>
-      <MudText>@Element.CaseNumber</MudText>
-      <MudText>@Element.CaseName</MudText>
+<MudGrid Class="pb-8">
+  <MudItem xs="6">
+    <MudCard>
+      <MudCardContent>
+        @if (Element.Bounty != null)
+        {
+          <MudText><MudChip Variant="Variant.Filled" Color="Color.Success" Class="mb-2">KI Riskscoring 
+            @AiPredictionRiskScore</MudChip></MudText>
+        }
+          
+        <div style="display: flex;" class="mb-2">
+          <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;" >Name:</MudText>
+          <MudText Typo="Typo.body1">@Element.CustomerName</MudText>
+        </div>
+          
+        <div style="display: flex;" class="mb-2">
+          <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;" >Datum:</MudText>
+          <MudText Typo="Typo.body1">@Element.Date</MudText>
+        </div>
+          
+        <div style="display: flex; " class="mb-2">
+          <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;">Adresse:</MudText>
+          <MudText Typo="Typo.body1">@Element.Address</MudText>
+        </div>
+          
+        <div style="display: flex; " class="mb-2">
+          <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;">Schadensursache :</MudText>
+          <MudText Typo="Typo.body1">Sturmwind</MudText>
+        </div>
+          
+        <MudText Typo="Typo.body1" Style="font-weight: bold;">Beschreibung:</MudText>
+        <MudText Typo="Typo.body1">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </MudText>
+      </MudCardContent>
+    </MudCard>
   </MudItem>
+  
   <MudItem xs="6">
     <div id="map" style="width:100%; height:400px;"></div>
   </MudItem>
 </MudGrid>
 
-<MudButton Variant="Variant.Filled" OnClick='@((e)=> NavigateTo("/case-list"))'>Zurück</MudButton>
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='@((e)=> NavigateTo("/offers"))'>Offerten anschauen</MudButton>
+<MudGrid Class="mt-6 ml-1"> 
+  <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+      <MudCarouselItem Transition="transition" Color="@Color.Transparent">
+          <div class="d-flex" style="height:100%; justify-content: center;">
+              <MudImage Src="images/image1.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg"/>
+          </div>
+      </MudCarouselItem>
+      <MudCarouselItem Transition="transition" Color="@Color.Transparent">
+          <div class="d-flex" style="height:100%; justify-content: center;">
+              <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+          </div>
+      </MudCarouselItem>
+      <MudCarouselItem Transition="transition" Color="@Color.Transparent">
+          <div class="d-flex" style="height:100%; justify-content: center;">
+              <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
+          </div>
+      </MudCarouselItem>
+  </MudCarousel>
+</MudGrid>
+
+<MudGrid Class="mt-10 ml-1">
+    <MudButton Variant="Variant.Filled" OnClick='@((e)=> NavigateTo("/case-list"))' Class="mr-4">Zurück</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='@((e)=> NavigateTo("/offers"))'>Offerten anschauen</MudButton>
+  </MudGrid>
 
 @code {
 [Inject] NavigationManager NavigationManager { get; set; }
@@ -29,6 +82,12 @@
 // Use Http request (Axios in JS) in Blazor
 [Inject] HttpClient HttpClient { get; set; }
 [Inject] IAIClassifierService AIService { get; set; }
+  
+  private bool arrows = true;
+  private bool bullets = true;
+  private bool enableSwipeGesture = true;
+  private bool autocycle = false;
+  private Transition transition = Transition.Slide;
 
 [Parameter]
 public string ParamId { get; set; }
@@ -53,37 +112,37 @@ protected override async void OnInitialized()
   LeafletService.Notify += OnNotify;
 }
 
-// Callback 
-private async Task OnNotify()
-{
-  await InvokeAsync(StateHasChanged);
-  Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
-}
-
-public void Dispose()
-{
-  LeafletService.Notify -= OnNotify;
-
-  LeafLetServiceRef?.Dispose();
-}
-
-private async Task NavigateTo(string path)
-{
-  NavigationManager.NavigateTo(path, forceLoad: false);
-}
-
-// Action after Blazor render
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-  if (firstRender)
+  // Callback 
+  private async Task OnNotify()
   {
-    // Connection with JS script 
-    await JsRuntime.InvokeAsync<object>(
-      "leafletApiJsFunctions.initialize",
-      Elements,
-      LeafLetServiceRef);
+    await InvokeAsync(StateHasChanged);
+    Console.WriteLine($"{LeafletService.Longitude}, {LeafletService.Latitude}");
   }
-}
+
+  public void Dispose()
+  {
+    LeafletService.Notify -= OnNotify;
+
+    LeafLetServiceRef?.Dispose();
+  }
+
+  private async Task NavigateTo(string path)
+  {
+    NavigationManager.NavigateTo(path, forceLoad: false);
+  }
+
+  // Action after Blazor render
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      // Connection with JS script 
+      await JsRuntime.InvokeAsync<object>(
+        "leafletApiJsFunctions.initialize",
+        null, null, Element,
+        LeafLetServiceRef);
+    }
+  }
 
 
 } 
