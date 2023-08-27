@@ -3,6 +3,9 @@
 
 Unser Thorstopper um das Handwerkerchaos zu beseitigen.
 
+![Alt Text](Docs/Screencast.gif)
+
+
 
 ---
 
