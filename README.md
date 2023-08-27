@@ -49,14 +49,6 @@ LocalDevelopment - `https://localhost:5000`
 
 ---
 
-# Known Issues
-
-## Kill port
-
-- `` $ sudo kill -9 `sudo lsof -t -i:3000`  ``
-
----
-
 ## Authors
 
 - [Nino Müller](https://github.com/ninomllr)
