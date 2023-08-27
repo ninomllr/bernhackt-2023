@@ -11,9 +11,9 @@ Unser Thorstopper um das Handwerkerchaos zu beseitigen.
 
 # Documentation
 
-[BärnHäckt - Project Project Documentation](./project-documentation.md)
-[Jury OnePager](https://github.com/ninomllr/bernhackt-2023/blob/main/Docs/BernHackt_%20Jury%20Template%20Documentation.pdf)
-[Pitch Präsi](https://github.com/ninomllr/bernhackt-2023/blob/main/Docs/B%C3%A4rnH%C3%A4ckt%202023%20pr%C3%A4si.pdf)
+* [BärnHäckt - Project Project Documentation](./project-documentation.md)
+* [Jury OnePager](https://github.com/ninomllr/bernhackt-2023/blob/main/Docs/BernHackt_%20Jury%20Template%20Documentation.pdf)
+* [Pitch Präsi](https://github.com/ninomllr/bernhackt-2023/blob/main/Docs/B%C3%A4rnH%C3%A4ckt%202023%20pr%C3%A4si.pdf)
 
 ---
 
