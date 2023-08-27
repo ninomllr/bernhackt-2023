@@ -4,18 +4,20 @@
 
 <PageTitle>Auftragsdetails</PageTitle>
 
-<h1>Auftragsdetails</h1>
+<div class="d-flex align-items-center">
+  <h1>Auftragsdetails</h1>
+  @if (Element.Bounty != null)
+  {
+    <MudText>
+      <MudChip Variant="Variant.Filled" Color="Color.Success" Class="mb-2 ml-3">KI Riskscoring @AiPredictionRiskScore</MudChip>
+    </MudText>
+  }
+</div>
 
 <MudGrid Class="pb-8">
   <MudItem xs="6">
-    <MudCard>
+    <MudCard Elevation="0">
       <MudCardContent>
-        @if (Element.Bounty != null)
-        {
-              <MudText><MudChip Variant="Variant.Filled" Color="Color.Success" Class="mb-2">KI Riskscoring 
-              @AiPredictionRiskScore</MudChip></MudText>
-        }
-
         <div style="display: flex;" class="mb-2">
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;" >Name:</MudText>
           <MudText Typo="Typo.body1">@Element.CustomerName</MudText>
@@ -35,8 +37,8 @@
           <MudText Typo="Typo.body1" Style="font-weight: bold; width: 30%;">Schadensursache :</MudText>
           <MudText Typo="Typo.body1">Sturmwind</MudText>
         </div>
-
-        <MudText Typo="Typo.body1" Style="font-weight: bold;">Beschreibung:</MudText>
+        
+        <MudText Typo="Typo.body1" Style="font-weight: bold;" Class="mt-6">Beschreibung:</MudText>
         <MudText Typo="Typo.body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
         </MudText>
@@ -45,7 +47,7 @@
   </MudItem>
 
   <MudItem xs="6">
-    <div id="map" style="width:100%; height:400px;"></div>
+    <div id="map" style="width:100%; height:100%;"></div>
   </MudItem>
 </MudGrid>
 
@@ -86,7 +88,7 @@
     private bool arrows = true;
     private bool bullets = true;
     private bool enableSwipeGesture = true;
-    private bool autocycle = false;
+    private bool autocycle = true;
     private Transition transition = Transition.Slide;
 
     [Parameter]
