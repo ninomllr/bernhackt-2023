@@ -9,6 +9,7 @@ public class Case
 	public string CaseName { get; set; }
 	public DateTime Date { get; set; }
 	public string CustomerName { get; set; }
+	public string CaseDescription { get; set; }
 
 	public string Address { get; set; }
 

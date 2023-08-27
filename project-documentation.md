@@ -49,7 +49,7 @@ MVP fokussiert sich auf Offerten mit Anreizen für Handwerker, um bei einem Notf
 * Auftrags- und Abrechnungstool für Handwerker
 
 ### Zukunftsplan
-* Anbinden APIs (zB Wetterdaten) also Source für Notfall-Raduisberechnung
+* Anbinden APIs (zB Wetterdaten) also Source für Notfall-Radiusberechnung
 
 ## Arbeitsverlauf
 <img src="./assets/img1.JPG" width="150">

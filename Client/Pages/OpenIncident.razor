@@ -1,7 +1,7 @@
-﻿@using System.Text.RegularExpressions
-@using System.ComponentModel.DataAnnotations
-
+﻿
 @page "/open-incident"
+
+@inject ISnackbar Snackbar
 
 <PageTitle>Notfallereignis erfassen</PageTitle>
 
@@ -10,19 +10,20 @@
 
 <MudGrid>
     <MudItem xs="12" Class="pa-4">
+        
         <MudPaper Elevation="0" Outlined="true" Class="pa-4">
             <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-                <MudTextField T="string" Label="Ort / PLZ " Required="true" RequiredError="Ort benötigt" />
-                <MudNumericField Class="mt-6" @bind-Value="IntRadius" Label="Radius (km)" Variant="Variant.Text" Min="1"  />
-                <MudDatePicker Class="mt-6" Label="Datum des Ereignisses" Required="true" RequiredError="Startdatum für Abgrenzung benötigt" />
-                <MudDatePicker Class="mt-6" Label="Gültig bis" Required="true" RequiredError="Entdatum für Abgrenzung benötigt" />
+                <MudTextField T="string" Label="Ort / PLZ " Required="true" RequiredError="Ort benötigt"/>
+                <MudNumericField Class="mt-6" @bind-Value="IntRadius" Label="Radius (km)" Variant="Variant.Text" Min="1"/>
+                <MudDatePicker Class="mt-6" Label="Datum des Ereignisses" Required="true" RequiredError="Startdatum für Abgrenzung benötigt"/>
+                <MudDatePicker Class="mt-6" Label="Gültig bis" Required="true" RequiredError="Entdatum für Abgrenzung benötigt"/>
                 <MudSelect Class="mt-6" T="string" Label="Ereignisstyp" Required="true" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem Value="@("Sturmwind")" />
-                    <MudSelectItem Value="@("Hagel")" />
-                    <MudSelectItem Value="@("Hochwasser")" />
+                    <MudSelectItem Value="@("Sturmwind")"/>
+                    <MudSelectItem Value="@("Hagel")"/>
+                    <MudSelectItem Value="@("Hochwasser")"/>
                 </MudSelect>
 
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(success)" Class="ml-auto mt-10">Notfallereigniss erfassen</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto mt-10"  @onclick="@(() => ChangePosition("Daten gespeichert", Defaults.Classes.Position.TopCenter))">Notfallereigniss erfassen</MudButton>
             </MudForm>
         </MudPaper>
     </MudItem>
@@ -35,5 +36,13 @@
     MudTextField<string> pwField1;
     MudForm form;
 
+    @code {
+        void ChangePosition(string message, string position)
+        {
+            Snackbar.Clear();
+            Snackbar.Configuration.PositionClass = position;
+            Snackbar.Add(message, Severity.Success);
+        }
+    }   
 
 }
